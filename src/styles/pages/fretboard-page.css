@@ -1,0 +1,284 @@
+/* Fretboard Page Styles */
+
+.fretboard-page {
+  min-height: calc(100vh - var(--header-height));
+  display: flex;
+  flex-direction: column;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-6) 0 var(--space-4) 0;
+  border-bottom: var(--border) solid var(--border-color);
+  background-color: var(--color-surface);
+}
+
+.page-header h1 {
+  font-size: var(--font-page-title);
+  margin: 0;
+  color: var(--color-text);
+}
+
+.toggle-controls-btn {
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-surface);
+  border: var(--border) solid var(--border-color);
+  border-radius: var(--radius-button);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: var(--transition-colors);
+}
+
+.toggle-controls-btn:hover {
+  background-color: var(--color-neutral-50);
+  border-color: var(--border-color-hover);
+}
+
+/* Main Layout */
+.fretboard-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 0;
+  min-height: 0;
+}
+
+.fretboard-layout.no-sidebar {
+  grid-template-columns: 1fr;
+}
+
+/* Controls Sidebar */
+.controls-sidebar {
+  background-color: var(--color-surface);
+  border-right: var(--border) solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.control-tabs {
+  display: flex;
+  border-bottom: var(--border) solid var(--border-color);
+  background-color: var(--color-neutral-50);
+}
+
+.control-tabs .tab {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  background: none;
+  border: none;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: var(--transition-colors);
+  border-bottom: 3px solid transparent;
+}
+
+.control-tabs .tab:hover {
+  background-color: var(--color-neutral-100);
+  color: var(--color-text);
+}
+
+.control-tabs .tab.active {
+  color: var(--color-primary);
+  background-color: var(--color-surface);
+  border-bottom-color: var(--color-primary);
+}
+
+.control-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-6);
+}
+
+/* Control Panels */
+.scales-panel,
+.chords-panel,
+.settings-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.control-group label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text);
+  margin-bottom: var(--space-1);
+}
+
+.control-group select,
+.control-group input {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: var(--border) solid var(--border-color);
+  border-radius: var(--radius);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  transition: var(--transition-colors);
+}
+
+.control-group select:focus,
+.control-group input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 var(--ring-width) var(--color-primary);
+}
+
+/* Main Fretboard Area */
+.fretboard-main {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg);
+  overflow: hidden;
+}
+
+.fretboard-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  overflow: auto;
+}
+
+.fretboard-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-4) var(--space-6);
+  background-color: var(--color-surface);
+  border-top: var(--border) solid var(--border-color);
+}
+
+.current-selection {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.current-selection-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-neutral-100);
+  border-radius: var(--radius);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+}
+
+.legend-color.root {
+  background-color: var(--color-root-note);
+}
+.legend-color.scale {
+  background-color: var(--color-scale-note);
+}
+.legend-color.chord {
+  background-color: var(--color-chord-tone);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .fretboard-layout {
+    grid-template-columns: 250px 1fr;
+  }
+
+  .control-content {
+    padding: var(--space-4);
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    padding: var(--space-4) 0 var(--space-3) 0;
+  }
+
+  .page-header h1 {
+    font-size: var(--text-2xl);
+  }
+
+  .fretboard-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .controls-sidebar {
+    border-right: none;
+    border-bottom: var(--border) solid var(--border-color);
+    max-height: 300px;
+  }
+
+  .fretboard-info {
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: flex-start;
+  }
+
+  .legend {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header {
+    flex-direction: column;
+    gap: var(--space-3);
+    text-align: center;
+  }
+
+  .control-tabs .tab {
+    font-size: var(--text-xs);
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .fretboard-container {
+    padding: var(--space-4);
+  }
+}
+
+/* Dark theme adjustments */
+[data-theme='dark'] .control-tabs {
+  background-color: var(--color-neutral-800);
+}
+
+[data-theme='dark'] .control-tabs .tab.active {
+  background-color: var(--color-surface);
+}
+
+[data-theme='dark'] .current-selection-item {
+  background-color: var(--color-neutral-700);
+  color: var(--color-neutral-200);
+}

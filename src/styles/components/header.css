@@ -1,0 +1,65 @@
+/* Header Component Styles */
+
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  background-color: var(--color-header-bg);
+  box-shadow: var(--shadow-header);
+  z-index: var(--z-header);
+  backdrop-filter: var(--backdrop-blur-sm);
+}
+
+.header-content {
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: 0 var(--space-header-padding);
+  height: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.logo h1 {
+  color: var(--color-header-text);
+  font-size: var(--font-header-title);
+  font-weight: var(--font-semibold);
+  margin: 0;
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-tight);
+}
+
+.logo-icon {
+  font-size: var(--text-2xl);
+  color: var(--color-primary);
+}
+
+/* Header responsive behavior */
+@media (max-width: 768px) {
+  .header-content {
+    padding: 0 var(--space-4);
+  }
+
+  .logo h1 {
+    font-size: var(--text-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .header-content {
+    padding: 0 var(--space-3);
+  }
+
+  .logo h1 {
+    font-size: var(--text-base);
+  }
+}

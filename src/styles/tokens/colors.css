@@ -1,0 +1,70 @@
+/* Design Token: Colors */
+:root {
+  /* Base palette */
+  --color-neutral-50: #f9fafb;
+  --color-neutral-100: #f3f4f6;
+  --color-neutral-200: #e5e7eb;
+  --color-neutral-300: #d1d5db;
+  --color-neutral-400: #9ca3af;
+  --color-neutral-500: #6b7280;
+  --color-neutral-600: #4b5563;
+  --color-neutral-700: #374151;
+  --color-neutral-800: #1f2937;
+  --color-neutral-900: #111827;
+
+  --color-blue-400: #60a5fa;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-blue-700: #1d4ed8;
+
+  --color-green-400: #4ade80;
+  --color-green-500: #10b981;
+  --color-green-600: #059669;
+
+  --color-red-400: #f87171;
+  --color-red-500: #ef4444;
+  --color-red-600: #dc2626;
+
+  --color-yellow-400: #facc15;
+  --color-yellow-500: #eab308;
+  --color-yellow-600: #ca8a04;
+
+  /* Semantic assignments */
+  --color-primary: var(--color-blue-600);
+  --color-primary-hover: var(--color-blue-700);
+  --color-secondary: var(--color-neutral-600);
+  --color-text: var(--color-neutral-900);
+  --color-text-muted: var(--color-neutral-600);
+  --color-bg: var(--color-neutral-50);
+  --color-surface: #ffffff;
+  --color-border: var(--color-neutral-200);
+  --color-border-hover: var(--color-neutral-300);
+
+  /* Component-specific semantic colors */
+  --color-header-bg: var(--color-neutral-800);
+  --color-header-text: var(--color-neutral-50);
+  --color-nav-hover: var(--color-neutral-700);
+  --color-nav-active: var(--color-primary);
+
+  /* Music-specific colors */
+  --color-root-note: var(--color-red-500);
+  --color-scale-note: var(--color-blue-500);
+  --color-chord-tone: var(--color-green-500);
+  --color-fret-marker: var(--color-neutral-400);
+  --color-string: var(--color-neutral-600);
+  --color-fretboard: var(--color-yellow-600);
+}
+
+/* Dark theme overrides */
+[data-theme='dark'] {
+  --color-bg: var(--color-neutral-900);
+  --color-text: var(--color-neutral-100);
+  --color-text-muted: var(--color-neutral-400);
+  --color-surface: var(--color-neutral-800);
+  --color-border: var(--color-neutral-700);
+  --color-border-hover: var(--color-neutral-600);
+
+  /* Header colors remain the same in dark mode */
+  --color-header-bg: var(--color-neutral-900);
+  --color-nav-hover: var(--color-neutral-700);
+}

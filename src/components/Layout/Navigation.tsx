@@ -1,12 +1,13 @@
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-export const Navigation: React.FC = () => {
+const Navigation: React.FC = () => {
   const location = useLocation();
 
   const navItems = [
-    { path: '/', label: 'Home' },
-    { path: '/fretboard', label: 'Fretboard' },
-    { path: '/about', label: 'About' },
+    { path: '/', label: 'Home', icon: '🏠' },
+    { path: '/fretboard', label: 'Fretboard', icon: '🎸' },
+    { path: '/about', label: 'About', icon: 'ℹ️' },
   ];
 
   return (
@@ -15,6 +16,7 @@ export const Navigation: React.FC = () => {
         {navItems.map(item => (
           <li key={item.path} className="nav-item">
             <Link to={item.path} className={`nav-link ${location.pathname === item.path ? 'active' : ''}`}>
+              <span className="nav-icon">{item.icon}</span>
               <span className="nav-label">{item.label}</span>
             </Link>
           </li>
