@@ -12,7 +12,7 @@ export interface Note {
   chromaticPosition: number;
 
   // Alternative names for enharmonic equivalents
-  enharmonicNames: string[]; // ["C#", "Db"] for the same pitch
+  enharmonicNames?: string[]; // ["C#", "Db"] for the same pitch
 
   // Display preference (sharp vs flat)
   displayMode: 'sharp' | 'flat' | 'natural';
