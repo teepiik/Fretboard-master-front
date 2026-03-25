@@ -29,6 +29,8 @@
   --color-yellow-500: #eab308;
   --color-yellow-600: #ca8a04;
 
+  --color-golden-brown: #8a5a2b;
+
   /* Semantic assignments */
   --color-primary: var(--color-blue-600);
   --color-primary-hover: var(--color-blue-700);
@@ -52,7 +54,7 @@
   --color-chord-tone: var(--color-green-500);
   --color-fret-marker: var(--color-neutral-400);
   --color-string: var(--color-neutral-600);
-  --color-fretboard: var(--color-yellow-600);
+  --color-fretboard: var(--color-golden-brown);
 }
 
 /* Dark theme overrides */

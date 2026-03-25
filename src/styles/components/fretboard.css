@@ -1,0 +1,252 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Fretboard Component Styles
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Fretboard container ─────────────────────────────────────────── */
+.fretboard {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-fretboard);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow-x: auto;
+  padding: var(--space-4);
+  gap: 0;
+  width: fit-content;
+  max-width: 100%;
+}
+
+/* ── Fret numbers row ────────────────────────────────────────────── */
+.fretboard__fret-numbers {
+  display: flex;
+  padding-left: 0;
+  gap: 0;
+}
+
+.fretboard__fret-number {
+  flex: 0 0 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-0-5);
+  height: 32px;
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  color: var(--color-neutral-100);
+  user-select: none;
+}
+
+.fretboard__fret-number--open {
+  flex: 0 0 44px;
+}
+
+/* Fret marker dots */
+.fretboard__dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-fret-marker);
+}
+
+/* ── Guitar string row ───────────────────────────────────────────── */
+.guitar-string {
+  position: relative;
+  height: 36px;
+}
+
+/* The visual string wire running horizontally */
+.guitar-string__line {
+  position: absolute;
+  top: 50%;
+  left: 44px; /* after nut */
+  right: 0;
+  transform: translateY(-50%);
+  background-color: var(--color-string);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* String thickness */
+.guitar-string--thin .guitar-string__line {
+  height: 1px;
+}
+.guitar-string--medium .guitar-string__line {
+  height: 2px;
+}
+.guitar-string--thick .guitar-string__line {
+  height: 3px;
+}
+
+/* Frets container within a string */
+.guitar-string__frets {
+  display: flex;
+  position: relative;
+  z-index: 1;
+  height: 100%;
+}
+
+/* ── Individual fret ─────────────────────────────────────────────── */
+.fret {
+  flex: 0 0 60px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.fret--open {
+  flex: 0 0 44px;
+}
+
+/* Fret wire (vertical bar) */
+.fret__wire {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--color-neutral-300), var(--color-neutral-400), var(--color-neutral-300));
+  pointer-events: none;
+}
+
+/* Nut (thick wire on fret 0 boundary) */
+.fret--open + .fret .fret__wire:first-child {
+  /* handled by the open fret border-right in some layouts */
+}
+
+/* Note wrapper (centered in the fret cell) */
+.fret__note-wrapper {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Note circle ─────────────────────────────────────────────────── */
+.note-circle {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-transform), var(--transition-shadow);
+  user-select: none;
+  box-shadow: var(--shadow-sm);
+  z-index: 3;
+}
+
+.note-circle:hover {
+  transform: scale(1.15);
+  box-shadow: var(--shadow-md);
+}
+
+.note-circle:focus-visible {
+  outline: var(--ring-width) solid var(--ring-color);
+  outline-offset: var(--ring-offset);
+}
+
+/* State colors */
+.note-circle--root {
+  background-color: var(--color-root-note);
+  color: #fff;
+}
+
+.note-circle--scale {
+  background-color: var(--color-scale-note);
+  color: #fff;
+}
+
+.note-circle--chord {
+  background-color: var(--color-chord-tone);
+  color: #fff;
+}
+
+/* Label inside the circle */
+.note-circle__label {
+  font-size: 10px;
+  font-weight: var(--font-bold);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  pointer-events: none;
+}
+
+/* ── Open-string nut styling ─────────────────────────────────────── */
+.fret--open {
+  border-right: 4px solid var(--color-neutral-800);
+}
+
+/* ── Fret markers on fret cells (subtle bg) ──────────────────────── */
+.fret--marker-single,
+.fret--marker-double {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Responsive ──────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .fret {
+    flex: 0 0 48px;
+  }
+  .fret--open {
+    flex: 0 0 36px;
+  }
+  .fretboard__fret-number {
+    flex: 0 0 48px;
+  }
+  .fretboard__fret-number--open {
+    flex: 0 0 36px;
+  }
+  .guitar-string__line {
+    left: 36px;
+  }
+  .note-circle {
+    width: 22px;
+    height: 22px;
+  }
+  .note-circle__label {
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fret {
+    flex: 0 0 40px;
+  }
+  .fret--open {
+    flex: 0 0 32px;
+  }
+  .fretboard__fret-number {
+    flex: 0 0 40px;
+  }
+  .fretboard__fret-number--open {
+    flex: 0 0 32px;
+  }
+  .guitar-string__line {
+    left: 32px;
+  }
+  .note-circle {
+    width: 20px;
+    height: 20px;
+  }
+  .note-circle__label {
+    font-size: 7px;
+  }
+}
+
+/* ── Dark theme tweaks ───────────────────────────────────────────── */
+[data-theme='dark'] .fretboard {
+  background-color: var(--color-neutral-800);
+}
+
+[data-theme='dark'] .fret__wire {
+  background: linear-gradient(to bottom, var(--color-neutral-600), var(--color-neutral-500), var(--color-neutral-600));
+}
+
+[data-theme='dark'] .fretboard__fret-number {
+  color: var(--color-neutral-300);
+}
