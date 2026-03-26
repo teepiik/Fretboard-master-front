@@ -44,10 +44,10 @@ export interface GuitarString {
   stringNumber: number; // 1-6 (1 = high E, 6 = low E)
 
   // Open string tuning
-  openNote: Note; // The note when string is played open
+  openNote: Note; // The note when string is played open, 0 fret
 
   // All frets on this string
-  frets: Fret[]; // Array of fret objects, typically 0-24
+  frets: Fret[]; // Array of fret objects, 0-24
 }
 
 /**
@@ -62,7 +62,7 @@ export interface Fretboard {
 
   // Display range
   startFret: number; // Usually 0 (open)
-  endFret: number; // Usually 12, 15, or 24
+  endFret: number; // Usually 12, 22, or 24
 
   // Active scale/mode
   activeScale?: Scale;

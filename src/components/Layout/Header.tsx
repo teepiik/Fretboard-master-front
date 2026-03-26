@@ -6,7 +6,6 @@ const Header: React.FC = () => {
     <header className="app-header">
       <div className="header-content">
         <div className="logo">
-          <span className="logo-icon">🎸</span>
           <h1>Fretboard Master</h1>
         </div>
         <Navigation />

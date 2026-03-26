@@ -73,7 +73,7 @@
   transform: translateY(-1px);
 }
 
-.hero-image {
+/* .hero-image {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,7 +84,7 @@
   font-size: 8rem;
   opacity: 0.8;
   animation: bounce 3s ease-in-out infinite;
-}
+} */
 
 /* Features Section */
 .features-section {

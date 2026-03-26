@@ -220,6 +220,7 @@
   }
 }
 
+/* Tablet styles */
 @media (max-width: 768px) {
   .page-header {
     padding: var(--space-4) 0 var(--space-3) 0;
@@ -252,6 +253,7 @@
   }
 }
 
+/* Mobile styles */
 @media (max-width: 480px) {
   .page-header {
     flex-direction: column;

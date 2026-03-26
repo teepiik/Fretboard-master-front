@@ -1,4 +1,3 @@
-// pages/Home.tsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -20,9 +19,6 @@ const Home: React.FC = () => {
               Learn More
             </Link>
           </div>
-        </div>
-        <div className="hero-image">
-          <div className="guitar-illustration">🎸</div>
         </div>
       </section>
 

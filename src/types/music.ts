@@ -123,9 +123,6 @@ export interface Chord {
   // Common progressions this chord appears in
   commonProgressions: string[];
 
-  // Difficulty level
-  difficulty: 'beginner' | 'intermediate' | 'advanced';
-
   // Barre chord information
   isBarreChord: boolean;
   barrePosition?: number; // Fret number where barre is applied
@@ -144,14 +141,8 @@ interface ChordPosition {
   // Finger positions for each string (null = don't play, 0 = open)
   fingerPositions: (number | null)[]; // [3, 2, 0, 1, 0, 3] for G major open position
 
-  // Which fingers to use (null = don't play, 0 = open)
-  fingerNumbers: (number | null)[]; // [3, 2, 0, 1, 0, 4] corresponding to above
-
   // Muted strings
   mutedStrings: boolean[]; // [false, false, false, false, false, false]
-
-  // Sound characteristics
-  voicingType: 'open' | 'closed' | 'spread' | 'cluster';
 }
 
 /**
@@ -179,18 +170,6 @@ export interface Tuning {
 
   // Intervals between adjacent strings
   stringIntervals: number[]; // [5, 5, 5, 4, 5] semitones between strings
-
-  // Common usage information
-  genres: string[]; // ["rock", "metal", "folk"]
-
-  // Common chord shapes that work well in this tuning
-  favorableChords: string[];
-
-  // Notable songs/artists that use this tuning
-  famousUses: Array<{
-    artist: string;
-    song: string;
-  }>;
 
   // Tuning instructions from standard tuning
   tuningSteps: Array<{
