@@ -63,28 +63,15 @@
 .cta-button.secondary {
   background-color: var(--color-surface);
   color: var(--color-text);
-  border: var(--border) solid var(--border-color);
+  border: var(--border) solid var(--color-border);
   box-shadow: var(--shadow-sm);
 }
 
 .cta-button.secondary:hover {
-  border-color: var(--border-color-hover);
+  border-color: var(--color-border-hover);
   box-shadow: var(--shadow-md);
   transform: translateY(-1px);
 }
-
-/* .hero-image {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-8);
-}
-
-.guitar-illustration {
-  font-size: 8rem;
-  opacity: 0.8;
-  animation: bounce 3s ease-in-out infinite;
-} */
 
 /* Features Section */
 .features-section {
@@ -224,10 +211,6 @@
     justify-content: center;
   }
 
-  .guitar-illustration {
-    font-size: 6rem;
-  }
-
   .steps {
     grid-template-columns: 1fr;
     gap: var(--space-6);
@@ -237,9 +220,4 @@
     grid-template-columns: 1fr;
     gap: var(--space-6);
   }
-}
-
-/* Dark theme adjustments */
-[data-theme='dark'] .features-section {
-  background-color: var(--color-neutral-800);
 }

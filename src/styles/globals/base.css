@@ -136,14 +136,3 @@ select {
   outline: var(--ring-width) solid var(--ring-color);
   outline-offset: var(--ring-offset);
 }
-
-/* Dark theme adjustments */
-[data-theme='dark'] code {
-  background-color: var(--color-neutral-800);
-  color: var(--color-neutral-200);
-}
-
-[data-theme='dark'] pre {
-  background-color: var(--color-neutral-800);
-  color: var(--color-neutral-200);
-}

@@ -112,11 +112,6 @@
   pointer-events: none;
 }
 
-/* Nut (thick wire on fret 0 boundary) */
-.fret--open + .fret .fret__wire:first-child {
-  /* handled by the open fret border-right in some layouts */
-}
-
 /* Note wrapper (centered in the fret cell) */
 .fret__note-wrapper {
   position: relative;
@@ -236,17 +231,4 @@
   .note-circle__label {
     font-size: 7px;
   }
-}
-
-/* ── Dark theme tweaks ───────────────────────────────────────────── */
-[data-theme='dark'] .fretboard {
-  background-color: var(--color-neutral-800);
-}
-
-[data-theme='dark'] .fret__wire {
-  background: linear-gradient(to bottom, var(--color-neutral-600), var(--color-neutral-500), var(--color-neutral-600));
-}
-
-[data-theme='dark'] .fretboard__fret-number {
-  color: var(--color-neutral-300);
 }

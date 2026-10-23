@@ -13,7 +13,7 @@
   display: flex;
   height: 100%;
   align-items: center;
-  gap: var(--space-nav-gap);
+  gap: var(--space-1);
 }
 
 .nav-item {
@@ -29,11 +29,11 @@
   height: 100%;
 
   color: var(--color-header-text);
-  font-size: var(--font-nav-item);
+  font-size: var(--text-sm);
   font-weight: var(--font-medium);
   text-decoration: none;
 
-  transition: var(--transition-nav);
+  transition: var(--transition-colors);
   border-bottom: 3px solid transparent;
   position: relative;
 
@@ -51,7 +51,7 @@
 }
 
 .nav-link.active {
-  background-color: var(--color-nav-active);
+  background-color: var(--color-primary);
   border-bottom-color: var(--color-header-text);
 }
 
@@ -75,7 +75,7 @@
 
 .nav-label {
   font-weight: var(--font-medium);
-  font-size: var(--font-nav-item);
+  font-size: var(--text-sm);
   line-height: 1;
 }
 

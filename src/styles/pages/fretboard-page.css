@@ -11,12 +11,12 @@
   justify-content: space-between;
   align-items: center;
   padding: var(--space-6) 0 var(--space-4) 0;
-  border-bottom: var(--border) solid var(--border-color);
+  border-bottom: var(--border) solid var(--color-border);
   background-color: var(--color-surface);
 }
 
 .page-header h1 {
-  font-size: var(--font-page-title);
+  font-size: var(--text-3xl);
   margin: 0;
   color: var(--color-text);
 }
@@ -24,8 +24,8 @@
 .toggle-controls-btn {
   padding: var(--space-2) var(--space-4);
   background-color: var(--color-surface);
-  border: var(--border) solid var(--border-color);
-  border-radius: var(--radius-button);
+  border: var(--border) solid var(--color-border);
+  border-radius: var(--radius-md);
   font-size: var(--text-sm);
   color: var(--color-text);
   cursor: pointer;
@@ -34,7 +34,7 @@
 
 .toggle-controls-btn:hover {
   background-color: var(--color-neutral-50);
-  border-color: var(--border-color-hover);
+  border-color: var(--color-border-hover);
 }
 
 /* Main Layout */
@@ -53,7 +53,7 @@
 /* Controls Sidebar */
 .controls-sidebar {
   background-color: var(--color-surface);
-  border-right: var(--border) solid var(--border-color);
+  border-right: var(--border) solid var(--color-border);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -61,7 +61,7 @@
 
 .control-tabs {
   display: flex;
-  border-bottom: var(--border) solid var(--border-color);
+  border-bottom: var(--border) solid var(--color-border);
   background-color: var(--color-neutral-50);
 }
 
@@ -121,7 +121,7 @@
 .control-group input {
   padding: var(--space-2) var(--space-3);
   margin: var(--space-1) 0;
-  border: var(--border) solid var(--border-color);
+  border: var(--border) solid var(--color-border);
   border-radius: var(--radius);
   background-color: var(--color-surface);
   color: var(--color-text);
@@ -159,7 +159,7 @@
   align-items: center;
   padding: var(--space-4) var(--space-6);
   background-color: var(--color-surface);
-  border-top: var(--border) solid var(--border-color);
+  border-top: var(--border) solid var(--color-border);
 }
 
 .current-selection {
@@ -237,7 +237,7 @@
 
   .controls-sidebar {
     border-right: none;
-    border-bottom: var(--border) solid var(--border-color);
+    border-bottom: var(--border) solid var(--color-border);
     max-height: 300px;
   }
 
@@ -269,18 +269,4 @@
   .fretboard-container {
     padding: var(--space-4);
   }
-}
-
-/* Dark theme adjustments */
-[data-theme='dark'] .control-tabs {
-  background-color: var(--color-neutral-800);
-}
-
-[data-theme='dark'] .control-tabs .tab.active {
-  background-color: var(--color-surface);
-}
-
-[data-theme='dark'] .current-selection-item {
-  background-color: var(--color-neutral-700);
-  color: var(--color-neutral-200);
 }
