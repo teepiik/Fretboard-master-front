@@ -1,4 +1,4 @@
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { Route, BrowserRouter, Routes } from 'react-router';
 import Layout from './components/Layout/Layout';
 import Home from './pages/Home';
 import FretboardPage from './pages/FretboardPage';
