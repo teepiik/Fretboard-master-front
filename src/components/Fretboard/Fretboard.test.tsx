@@ -21,6 +21,19 @@ describe('Fretboard', () => {
     expect(strings[5]).toHaveClass('guitar-string--thick');
   });
 
+  it('is horizontal by default and exposes a vertical modifier', () => {
+    const { rerender } = render(<Fretboard rootNote="C" scaleType="major" />);
+    const grid = screen.getByRole('grid', { name: /guitar fretboard/i });
+    expect(grid).toHaveAttribute('data-orientation', 'horizontal');
+    expect(grid).not.toHaveClass('fretboard--vertical');
+
+    rerender(<Fretboard rootNote="C" scaleType="major" orientation="vertical" />);
+    expect(grid).toHaveAttribute('data-orientation', 'vertical');
+    expect(grid).toHaveClass('fretboard', 'fretboard--vertical');
+    // Same DOM in both orientations; layout is CSS-only.
+    expect(grid.querySelectorAll('.guitar-string')).toHaveLength(6);
+  });
+
   it('highlights root and scale notes and hides out-of-scale notes', () => {
     const { container } = render(<Fretboard rootNote="A" scaleType="pentatonic minor" />);
     const lowE = container.querySelector('[data-string="6"]')!;

@@ -253,7 +253,83 @@
   }
 }
 
-/* Mobile styles */
+/* Mobile styles (<= --bp-mobile) — simplified view.
+   `.fretboard-page--mobile` is applied by the page via useBreakpoint('mobile')
+   and is what switches the fretboard to vertical orientation. */
+@media (max-width: 640px) {
+  .fretboard-page--mobile .page-header {
+    padding: var(--space-3) 0;
+  }
+
+  .fretboard-page--mobile .page-header h1 {
+    font-size: var(--text-xl);
+  }
+
+  /* Controls become a compact wrapping row above the neck */
+  .fretboard-page--mobile .controls-sidebar {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .fretboard-page--mobile .control-content {
+    padding: var(--space-3) 0;
+  }
+
+  .fretboard-page--mobile .scales-panel {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .fretboard-page--mobile .control-group {
+    flex: 1 1 40%;
+    min-width: 0;
+    gap: var(--space-1);
+  }
+
+  .fretboard-page--mobile .control-group label {
+    font-size: var(--text-xs);
+    margin-bottom: 0;
+  }
+
+  .fretboard-page--mobile .control-group select {
+    width: 100%;
+    margin: 0;
+    min-height: var(--touch-target-min);
+  }
+
+  .fretboard-page--mobile .control-group input[type='checkbox'] {
+    width: var(--space-5);
+    height: var(--space-5);
+    margin: 0 0 0 var(--space-2);
+    vertical-align: middle;
+  }
+
+  /* Vertical neck: let the page scroll instead of the container */
+  .fretboard-page--mobile .fretboard-main {
+    overflow: visible;
+  }
+
+  .fretboard-page--mobile .fretboard-container {
+    align-items: flex-start;
+    padding: var(--space-3) 0;
+    overflow: visible;
+  }
+
+  /* Info bar reduced to the legend, centred */
+  .fretboard-page--mobile .fretboard-info {
+    flex-direction: row;
+    justify-content: center;
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .fretboard-page--mobile .legend {
+    justify-content: center;
+    gap: var(--space-3);
+  }
+}
+
+/* Small mobile styles */
 @media (max-width: 480px) {
   .page-header {
     flex-direction: column;

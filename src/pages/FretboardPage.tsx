@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Fretboard from '../components/Fretboard/Fretboard';
+import { useBreakpoint } from '../hooks/useMediaQuery';
 import type { NoteName, ScaleType } from '../types/music';
 
 const ROOTS: NoteName[] = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
@@ -25,8 +26,11 @@ const FretboardPage: React.FC = () => {
   const [showNoteNames, setShowNoteNames] = useState(true);
   const [numFrets, setNumFrets] = useState(12);
 
+  // Simplified mobile view: vertical neck, compact controls, legend only.
+  const isMobile = useBreakpoint('mobile');
+
   return (
-    <div className="fretboard-page">
+    <div className={isMobile ? 'fretboard-page fretboard-page--mobile' : 'fretboard-page'}>
       {/* Page header */}
       <div className="page-header">
         <h1>Fretboard</h1>
@@ -91,19 +95,27 @@ const FretboardPage: React.FC = () => {
         {/* Main fretboard area */}
         <main className="fretboard-main">
           <div className="fretboard-container">
-            <Fretboard rootNote={rootNote} scaleType={scaleType} numFrets={numFrets} showNoteNames={showNoteNames} />
+            <Fretboard
+              rootNote={rootNote}
+              scaleType={scaleType}
+              numFrets={numFrets}
+              showNoteNames={showNoteNames}
+              orientation={isMobile ? 'vertical' : 'horizontal'}
+            />
           </div>
 
           {/* Info bar / legend */}
           <div className="fretboard-info">
-            <div className="current-selection">
-              <span className="current-selection-item">
-                Root: <strong>{rootNote}</strong>
-              </span>
-              <span className="current-selection-item">
-                Scale: <strong>{SCALE_TYPES.find(s => s.value === scaleType)?.label}</strong>
-              </span>
-            </div>
+            {!isMobile && (
+              <div className="current-selection">
+                <span className="current-selection-item">
+                  Root: <strong>{rootNote}</strong>
+                </span>
+                <span className="current-selection-item">
+                  Scale: <strong>{SCALE_TYPES.find(s => s.value === scaleType)?.label}</strong>
+                </span>
+              </div>
+            )}
             <div className="legend">
               <span className="legend-item">
                 <span className="legend-color root" /> Root

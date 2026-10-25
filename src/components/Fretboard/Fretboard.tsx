@@ -16,7 +16,14 @@ interface FretboardProps {
   displayMode?: 'sharp' | 'flat' | 'natural';
   /** Callback when a fret is clicked */
   onNoteClick?: (stringIndex: number, fret: number) => void;
+  /**
+   * Layout direction of the neck. `horizontal` (default) lays strings out as rows;
+   * `vertical` lays them out as columns (low E on the left), suited to narrow screens.
+   */
+  orientation?: FretboardOrientation;
 }
+
+export type FretboardOrientation = 'horizontal' | 'vertical';
 
 const Fretboard: React.FC<FretboardProps> = ({
   rootNote,
@@ -25,6 +32,7 @@ const Fretboard: React.FC<FretboardProps> = ({
   showNoteNames = true,
   displayMode = 'sharp',
   onNoteClick,
+  orientation = 'horizontal',
 }) => {
   // Generate all fretboard notes (memoised so it only recalculates when inputs change)
   const fretboardData = useMemo(
@@ -49,8 +57,10 @@ const Fretboard: React.FC<FretboardProps> = ({
     return nums;
   }, [numFrets]);
 
+  const className = orientation === 'vertical' ? 'fretboard fretboard--vertical' : 'fretboard';
+
   return (
-    <div className="fretboard" role="grid" aria-label="Guitar fretboard">
+    <div className={className} role="grid" aria-label="Guitar fretboard" data-orientation={orientation}>
       {/* Fret numbers row */}
       <div className="fretboard__fret-numbers" role="row">
         {fretNumbers.map(n => {
