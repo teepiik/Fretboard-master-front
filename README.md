@@ -1,90 +1,72 @@
 # Fretboard Master
 
-This is Fretboard Master frontend
+Interactive guitar fretboard visualiser. Pick a root note and a scale, and see every matching note highlighted on the neck.
 
-## QA and testing
+## Features
 
-Quality checks run locally with:
+- 12 scales and modes (major, minor variants, church modes, pentatonics, blues)
+- 12, 22 or 24 frets, root and scale notes colour coded, optional note names
+- Horizontal neck on desktop, vertical neck on mobile (≤ 640px)
+- Keyboard accessible, no backend required
+
+## Tech stack
+
+React 19 · TypeScript (strict) · Vite 8 · react-router 7 · plain CSS with design tokens · Vitest + React Testing Library
+
+## Getting started
+
+Requires Node 24 (see `.nvmrc`) and npm 10.
 
 ```sh
-npm run lint    # ESLint (TypeScript, React hooks, React refresh)
-npm run build   # tsc type check + Vite production build
-npm test        # Vitest, single run
-npm run test:watch
+nvm use
+npm install
+npm run dev        # http://localhost:5173
 ```
 
-Tests use [Vitest](https://vitest.dev) with [React Testing Library](https://testing-library.com/react) in a jsdom environment. Config lives in `vite.config.ts` (`test` block) and `src/test/setup.ts` (jest-dom matchers, automatic cleanup). Test files sit next to the code they cover as `*.test.ts(x)`.
+## Scripts
 
-What is covered, and the intent behind each layer:
+| Command              | Description                              |
+| -------------------- | ---------------------------------------- |
+| `npm run dev`        | Start the Vite dev server                |
+| `npm run build`      | Type check (`tsc -b`) and production build to `dist/` |
+| `npm run preview`    | Serve the production build locally       |
+| `npm run lint`       | ESLint                                   |
+| `npm test`           | Run the test suite once                  |
+| `npm run test:watch` | Run tests in watch mode                  |
 
-- `src/utils/musicTheory/helpers.test.ts` – pure music theory logic (note/MIDI conversion, scale construction, fretboard generation, fret markers). Cheapest and most valuable tests; add here first when changing theory code.
-- `src/components/Fretboard/Fretboard.test.tsx` – rendering of strings/frets, root/scale highlighting, note label toggle, click callback.
-- `src/pages/FretboardPage.test.tsx` – user flow: changing root, scale, fret count and labels updates the board and summary.
-- `src/App.test.tsx` – routing through `Layout` with a `MemoryRouter` (home, fretboard, about, 404, active nav state).
+## Project structure
 
-Guidelines:
-
-- Query by role, label or text (what the user sees), not by implementation details. Use `data-*`/class selectors only for fretboard geometry where no accessible handle exists.
-- Prefer `@testing-library/user-event` over `fireEvent`.
-- Keep coverage focused on main behaviour rather than exhaustive; CSS is not loaded in tests, so visual checks belong in a browser (e.g. Playwright) if added later.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```
+src/
+  components/Fretboard/   Fretboard, GuitarString, Fret, Note
+  components/Layout/      Layout, Header, Navigation
+  pages/                  Home, FretboardPage, About, NotFound
+  hooks/                  useMediaQuery / useBreakpoint
+  styles/                 tokens.css (design tokens), breakpoints.ts, globals/, components/, pages/
+  utils/musicTheory/      Note, scale and fretboard generation logic
+  types/                  Shared TypeScript types
+  test/                   Vitest setup and matchMedia mock
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Styling is global CSS driven by custom properties in `src/styles/tokens.css`. Breakpoints (1024 / 768 / 640 / 480) are desktop-first and mirrored in `src/styles/breakpoints.ts` for runtime use.
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+## Testing
 
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+Tests live next to the code as `*.test.ts(x)` and run in jsdom with CSS disabled, so they assert behaviour and markup rather than layout. Query by role, label or text; use `@testing-library/user-event` for interaction. Viewport-dependent behaviour is tested with `setViewportWidth()` from `src/test/matchMedia.ts`.
+
+Before opening a pull request make sure all of these pass:
+
+```sh
+npm run lint && npx tsc -b && npm test
 ```
+
+## Contributing
+
+- Follow `.prettierrc` (single quotes, trailing commas, 120 columns).
+- Add a design token only when the value is reused.
+- Commit messages: lowercase, imperative, no type prefix, e.g. `add vertical mobile fretboard view`.
+- `AGENTS.md` and `.opencode/skills/` document conventions for AI coding agents.
+
+## License
+
+Private project; no license granted.
