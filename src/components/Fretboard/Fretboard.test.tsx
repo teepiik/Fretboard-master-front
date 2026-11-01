@@ -2,18 +2,27 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Fretboard from './Fretboard';
+import { FAKE_SCALES } from '../../test/fakeApi';
+
+const major = FAKE_SCALES.find(s => s.id === 'major')!;
+const minorPent = FAKE_SCALES.find(s => s.id === 'minor-pentatonic')!;
 
 describe('Fretboard', () => {
   it('renders an accessible grid with 6 strings and the right number of fret columns', () => {
-    render(<Fretboard rootNote="C" scaleType="major" numFrets={12} />);
+    render(<Fretboard rootNote="C" scale={major} />);
 
     const grid = screen.getByRole('grid', { name: /guitar fretboard/i });
     expect(within(grid).getAllByRole('columnheader')).toHaveLength(13);
     expect(grid.querySelectorAll('.guitar-string')).toHaveLength(6);
   });
 
+  it('renders numFrets + 1 columns', () => {
+    render(<Fretboard rootNote="C" scale={major} numFrets={24} />);
+    expect(screen.getAllByRole('columnheader')).toHaveLength(25);
+  });
+
   it('puts high E on top and low E on the bottom', () => {
-    const { container } = render(<Fretboard rootNote="C" scaleType="major" />);
+    const { container } = render(<Fretboard rootNote="C" scale={major} />);
     const strings = container.querySelectorAll('.guitar-string');
     expect(strings[0]).toHaveAttribute('data-string', '1');
     expect(strings[0]).toHaveClass('guitar-string--thin');
@@ -22,12 +31,12 @@ describe('Fretboard', () => {
   });
 
   it('is horizontal by default and exposes a vertical modifier', () => {
-    const { rerender } = render(<Fretboard rootNote="C" scaleType="major" />);
+    const { rerender } = render(<Fretboard rootNote="C" scale={major} />);
     const grid = screen.getByRole('grid', { name: /guitar fretboard/i });
     expect(grid).toHaveAttribute('data-orientation', 'horizontal');
     expect(grid).not.toHaveClass('fretboard--vertical');
 
-    rerender(<Fretboard rootNote="C" scaleType="major" orientation="vertical" />);
+    rerender(<Fretboard rootNote="C" scale={major} orientation="vertical" />);
     expect(grid).toHaveAttribute('data-orientation', 'vertical');
     expect(grid).toHaveClass('fretboard', 'fretboard--vertical');
     // Same DOM in both orientations; layout is CSS-only.
@@ -35,7 +44,7 @@ describe('Fretboard', () => {
   });
 
   it('highlights root and scale notes and hides out-of-scale notes', () => {
-    const { container } = render(<Fretboard rootNote="A" scaleType="pentatonic minor" />);
+    const { container } = render(<Fretboard rootNote="A" scale={minorPent} />);
     const lowE = container.querySelector('[data-string="6"]')!;
 
     const fretA = lowE.querySelector('[data-fret="5"]')!;
@@ -50,7 +59,7 @@ describe('Fretboard', () => {
   });
 
   it('hides note labels when showNoteNames is false', () => {
-    const { container } = render(<Fretboard rootNote="C" scaleType="major" showNoteNames={false} />);
+    const { container } = render(<Fretboard rootNote="C" scale={major} showNoteNames={false} />);
     expect(container.querySelector('.note-circle')).not.toBeNull();
     expect(container.querySelector('.note-circle__label')).toBeNull();
   });
@@ -58,7 +67,7 @@ describe('Fretboard', () => {
   it('calls onNoteClick with low-to-high string index and fret', async () => {
     const user = userEvent.setup();
     const onNoteClick = vi.fn();
-    const { container } = render(<Fretboard rootNote="C" scaleType="major" onNoteClick={onNoteClick} />);
+    const { container } = render(<Fretboard rootNote="C" scale={major} onNoteClick={onNoteClick} />);
 
     // Low E string (data-string=6) is stringIndex 0; fret 8 is C (root)
     const note = container.querySelector('[data-string="6"] [data-fret="8"] .note-circle')!;

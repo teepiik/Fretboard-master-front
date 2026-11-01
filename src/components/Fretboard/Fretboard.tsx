@@ -1,20 +1,23 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import GuitarString from './GuitarString';
-import { generateFretboardNotes, hasFretMarker } from '../../utils/musicTheory/helpers';
-import type { NoteName, ScaleType } from '../../types/music';
+import { hasFretMarker } from './fretMarkers';
+import { generateFretboardNotes } from '../../utils/musicTheory/fretboard';
+import { STANDARD_TUNING, type DisplayMode, type NoteName, type Scale, type Tuning } from '../../types/music';
 
 interface FretboardProps {
   /** Root note for the active scale */
   rootNote: NoteName;
-  /** Active scale type */
-  scaleType: ScaleType;
+  /** Active scale (from the backend catalogue) */
+  scale: Scale;
+  /** Tuning (from the backend catalogue); defaults to standard */
+  tuning?: Tuning;
   /** Number of frets to display (default 12) */
   numFrets?: number;
   /** Whether to show note name labels */
   showNoteNames?: boolean;
   /** Sharp / flat display preference */
-  displayMode?: 'sharp' | 'flat' | 'natural';
-  /** Callback when a fret is clicked */
+  displayMode?: DisplayMode;
+  /** Callback when a fret is clicked; `stringIndex` 0 = lowest string */
   onNoteClick?: (stringIndex: number, fret: number) => void;
   /**
    * Layout direction of the neck. `horizontal` (default) lays strings out as rows;
@@ -27,7 +30,8 @@ export type FretboardOrientation = 'horizontal' | 'vertical';
 
 const Fretboard: React.FC<FretboardProps> = ({
   rootNote,
-  scaleType,
+  scale,
+  tuning = STANDARD_TUNING,
   numFrets = 12,
   showNoteNames = true,
   displayMode = 'sharp',
@@ -36,8 +40,8 @@ const Fretboard: React.FC<FretboardProps> = ({
 }) => {
   // Generate all fretboard notes (memoised so it only recalculates when inputs change)
   const fretboardData = useMemo(
-    () => generateFretboardNotes(rootNote, scaleType, numFrets, displayMode),
-    [rootNote, scaleType, numFrets, displayMode],
+    () => generateFretboardNotes({ root: rootNote, scale, tuning, numFrets, displayMode }),
+    [rootNote, scale, tuning, numFrets, displayMode],
   );
 
   // Strings are stored low→high (index 0 = low E). Reverse so high E is on top.
@@ -51,11 +55,7 @@ const Fretboard: React.FC<FretboardProps> = ({
   );
 
   // Build fret number labels
-  const fretNumbers = useMemo(() => {
-    const nums: number[] = [];
-    for (let i = 0; i <= numFrets; i++) nums.push(i);
-    return nums;
-  }, [numFrets]);
+  const fretNumbers = useMemo(() => Array.from({ length: numFrets + 1 }, (_, i) => i), [numFrets]);
 
   const className = orientation === 'vertical' ? 'fretboard fretboard--vertical' : 'fretboard';
 

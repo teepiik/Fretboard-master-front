@@ -4,8 +4,9 @@
 // Supports color coding and animations
 
 import React from 'react';
+import type { Highlight } from '../../types/music';
 
-export type NoteState = 'root' | 'scale' | 'chord' | 'none';
+export type NoteState = Highlight;
 
 interface NoteProps {
   /** Display name of the note, e.g. "C#" */

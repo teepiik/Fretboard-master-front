@@ -1,7 +1,7 @@
 import React from 'react';
 import Note from './Note';
 import type { NoteState } from './Note';
-import { hasFretMarker } from '../../utils/musicTheory/helpers';
+import { hasFretMarker } from './fretMarkers';
 
 interface FretProps {
   /** Fret position (0 = open / nut) */

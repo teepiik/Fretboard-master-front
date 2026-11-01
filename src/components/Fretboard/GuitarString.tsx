@@ -1,6 +1,6 @@
 import React from 'react';
 import Fret from './Fret';
-import type { FretboardNote } from '../../utils/musicTheory/helpers';
+import type { FretboardNote } from '../../types/music';
 
 interface GuitarStringProps {
   /** 1-based string number (1 = high E, 6 = low E) */
@@ -9,7 +9,7 @@ interface GuitarStringProps {
   frets: FretboardNote[];
   /** Whether to show note names */
   showNoteNames: boolean;
-  /** Callback when a note is clicked */
+  /** Callback when a note is clicked; `stringIndex` is 0 = lowest string */
   onNoteClick?: (stringIndex: number, fret: number) => void;
 }
 
@@ -33,7 +33,7 @@ const GuitarString: React.FC<GuitarStringProps> = ({ stringNumber, frets, showNo
             key={f.fret}
             fretNumber={f.fret}
             noteName={f.note.name}
-            noteState={f.highlightType}
+            noteState={f.highlight}
             showNoteName={showNoteNames}
             isOpen={f.fret === 0}
             onNoteClick={() => onNoteClick?.(f.stringIndex, f.fret)}

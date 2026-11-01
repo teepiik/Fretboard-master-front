@@ -1,33 +1,23 @@
 import React, { useState } from 'react';
 import Fretboard from '../components/Fretboard/Fretboard';
 import { useBreakpoint } from '../hooks/useMediaQuery';
-import type { NoteName, ScaleType } from '../types/music';
+import { useScales } from '../hooks/useMusicData';
+import { ROOT_NOTES, type NoteName, type ScaleId } from '../types/music';
 
-const ROOTS: NoteName[] = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-
-const SCALE_TYPES: { value: ScaleType; label: string }[] = [
-  { value: 'major', label: 'Major' },
-  { value: 'natural minor', label: 'Natural Minor' },
-  { value: 'harmonic minor', label: 'Harmonic Minor' },
-  { value: 'melodic minor', label: 'Melodic Minor' },
-  { value: 'dorian', label: 'Dorian' },
-  { value: 'phrygian', label: 'Phrygian' },
-  { value: 'lydian', label: 'Lydian' },
-  { value: 'mixolydian', label: 'Mixolydian' },
-  { value: 'locrian', label: 'Locrian' },
-  { value: 'pentatonic major', label: 'Pentatonic Major' },
-  { value: 'pentatonic minor', label: 'Pentatonic Minor' },
-  { value: 'blues', label: 'Blues' },
-];
+const FRET_COUNTS = [12, 22, 24];
 
 const FretboardPage: React.FC = () => {
   const [rootNote, setRootNote] = useState<NoteName>('C');
-  const [scaleType, setScaleType] = useState<ScaleType>('major');
+  const [scaleId, setScaleId] = useState<ScaleId>('major');
   const [showNoteNames, setShowNoteNames] = useState(true);
   const [numFrets, setNumFrets] = useState(12);
 
   // Simplified mobile view: vertical neck, compact controls, legend only.
   const isMobile = useBreakpoint('mobile');
+
+  // Scale definitions (intervals) come from the backend; the neck is computed locally.
+  const scales = useScales();
+  const scale = scales.data?.find(s => s.id === scaleId) ?? scales.data?.[0];
 
   return (
     <div className={isMobile ? 'fretboard-page fretboard-page--mobile' : 'fretboard-page'}>
@@ -44,8 +34,8 @@ const FretboardPage: React.FC = () => {
               {/* Root note */}
               <div className="control-group">
                 <label htmlFor="root-select">Root Note</label>
-                <select id="root-select" value={rootNote} onChange={e => setRootNote(e.target.value as NoteName)}>
-                  {ROOTS.map(r => (
+                <select id="root-select" value={rootNote} onChange={e => setRootNote(e.target.value)}>
+                  {ROOT_NOTES.map(r => (
                     <option key={r} value={r}>
                       {r}
                     </option>
@@ -56,12 +46,21 @@ const FretboardPage: React.FC = () => {
               {/* Scale type */}
               <div className="control-group">
                 <label htmlFor="scale-select">Scale</label>
-                <select id="scale-select" value={scaleType} onChange={e => setScaleType(e.target.value as ScaleType)}>
-                  {SCALE_TYPES.map(s => (
-                    <option key={s.value} value={s.value}>
-                      {s.label}
-                    </option>
-                  ))}
+                <select
+                  id="scale-select"
+                  value={scale?.id ?? scaleId}
+                  disabled={!scales.data}
+                  onChange={e => setScaleId(e.target.value as ScaleId)}
+                >
+                  {scales.data ? (
+                    scales.data.map(s => (
+                      <option key={s.id} value={s.id}>
+                        {s.name}
+                      </option>
+                    ))
+                  ) : (
+                    <option value={scaleId}>{scales.isLoading ? 'Loading…' : 'Unavailable'}</option>
+                  )}
                 </select>
               </div>
 
@@ -69,7 +68,7 @@ const FretboardPage: React.FC = () => {
               <div className="control-group">
                 <label htmlFor="frets-select">Frets</label>
                 <select id="frets-select" value={numFrets} onChange={e => setNumFrets(Number(e.target.value))}>
-                  {[12, 22, 24].map(n => (
+                  {FRET_COUNTS.map(n => (
                     <option key={n} value={n}>
                       {n}
                     </option>
@@ -95,13 +94,26 @@ const FretboardPage: React.FC = () => {
         {/* Main fretboard area */}
         <main className="fretboard-main">
           <div className="fretboard-container">
-            <Fretboard
-              rootNote={rootNote}
-              scaleType={scaleType}
-              numFrets={numFrets}
-              showNoteNames={showNoteNames}
-              orientation={isMobile ? 'vertical' : 'horizontal'}
-            />
+            {scale ? (
+              <Fretboard
+                rootNote={rootNote}
+                scale={scale}
+                numFrets={numFrets}
+                showNoteNames={showNoteNames}
+                orientation={isMobile ? 'vertical' : 'horizontal'}
+              />
+            ) : scales.error ? (
+              <div className="fretboard-status fretboard-status--error" role="alert">
+                <p>Could not load scales: {scales.error.message}</p>
+                <button type="button" onClick={scales.retry}>
+                  Retry
+                </button>
+              </div>
+            ) : (
+              <p className="fretboard-status" role="status">
+                Loading scales…
+              </p>
+            )}
           </div>
 
           {/* Info bar / legend */}
@@ -112,7 +124,7 @@ const FretboardPage: React.FC = () => {
                   Root: <strong>{rootNote}</strong>
                 </span>
                 <span className="current-selection-item">
-                  Scale: <strong>{SCALE_TYPES.find(s => s.value === scaleType)?.label}</strong>
+                  Scale: <strong>{scale?.name ?? '—'}</strong>
                 </span>
               </div>
             )}

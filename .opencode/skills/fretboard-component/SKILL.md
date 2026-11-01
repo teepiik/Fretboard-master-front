@@ -7,7 +7,7 @@ description: Use when changing the fretboard UI — Fretboard, GuitarString, Fre
 
 Files: `src/components/Fretboard/{Fretboard,GuitarString,Fret,Note}.tsx`, `src/styles/components/fretboard.css`, `src/pages/FretboardPage.tsx`, `src/styles/pages/fretboard-page.css`.
 
-Pure DOM + flexbox, no SVG/canvas. Data comes from `generateFretboardNotes()` (see `music-theory` skill).
+Pure DOM + flexbox, no SVG/canvas. Data comes from `generateFretboardNotes()` in `utils/musicTheory/fretboard.ts`, fed with a `Scale` from the backend catalogue (see `music-theory` skill).
 
 ## DOM structure
 
@@ -39,9 +39,9 @@ The DOM is identical in both orientations; `orientation` only toggles the `fretb
 
 ## Props
 
-`Fretboard`: `rootNote`, `scaleType`, `numFrets=12`, `showNoteNames=true`, `displayMode='sharp'|'flat'|'natural'`, `onNoteClick?(stringIndex, fret)`, `orientation='horizontal'|'vertical'`.
+`Fretboard`: `rootNote`, `scale: Scale`, `tuning=STANDARD_TUNING`, `numFrets=12`, `showNoteNames=true`, `displayMode='sharp'|'flat'`, `onNoteClick?(stringIndex, fret)`, `orientation='horizontal'|'vertical'`.
 
-`FretboardPage` owns state (`rootNote`, `scaleType`, `showNoteNames`, `numFrets` of 12|22|24) and picks orientation with `useBreakpoint('mobile')`. On mobile it adds `.fretboard-page--mobile` and drops the Root/Scale summary; the legend stays. `displayMode` and `onNoteClick` are not yet wired from the page.
+`FretboardPage` owns state (`rootNote`, `scaleId`, `showNoteNames`, `numFrets` of 12|22|24), loads the scale list with `useScales()` (shows `role=status` while loading, `role=alert` + Retry on error) and picks orientation with `useBreakpoint('mobile')`. On mobile it adds `.fretboard-page--mobile` and drops the Root/Scale summary; the legend stays. `displayMode` and `onNoteClick` are not yet wired from the page.
 
 ## Styling
 
@@ -53,6 +53,7 @@ All dimensions come from the `--fret-*` / `--note-*` tokens; breakpoints overrid
 
 ## Notes
 
-- `src/types/fretboard.ts` (`Fret`, `GuitarString`, `Fretboard` interfaces) is aspirational and not used by the components; don't import it expecting it to match the runtime shape. Runtime type is `FretboardNote` in `helpers.ts`.
+- Runtime row type is `FretboardNote` (`types/music.ts`): `{ stringIndex, fret, note, highlight }`. `Note.tsx`'s `NoteState` is an alias of `Highlight`.
+- Tests render `Fretboard` with scales from `src/test/fakeApi.ts` (`FAKE_SCALES`); page tests must `await screen.findByRole('grid')` because scales load asynchronously.
 - `fretboard-page.css` has scaffolding for unimplemented UI (`.control-tabs`, `.chords-panel`, `.settings-panel`, `.toggle-controls-btn`). Reuse rather than duplicate if you implement those.
 - Chord highlighting (`'chord'` state, `--color-chord-tone`) is styled but never produced by the data layer yet.

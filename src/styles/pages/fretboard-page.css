@@ -153,6 +153,31 @@
   overflow: auto;
 }
 
+/* Loading / error placeholder shown instead of the neck */
+.fretboard-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.fretboard-status--error {
+  color: var(--color-root-note);
+}
+
+.fretboard-status button {
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-surface);
+  border: var(--border) solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
 .fretboard-info {
   display: flex;
   justify-content: space-between;
