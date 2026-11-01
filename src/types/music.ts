@@ -61,4 +61,8 @@ export interface FretboardNote {
 export const ROOT_NOTES: readonly NoteName[] = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 
 /** Standard tuning used until the tunings catalogue is wired into the UI. */
-export const STANDARD_TUNING: Tuning = { id: 'standard', name: 'Standard (E A D G B E)', midi: [40, 45, 50, 55, 59, 64] };
+export const STANDARD_TUNING: Tuning = {
+  id: 'standard',
+  name: 'Standard (E A D G B E)',
+  midi: [40, 45, 50, 55, 59, 64],
+};

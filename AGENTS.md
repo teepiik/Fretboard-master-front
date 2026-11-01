@@ -14,7 +14,8 @@ Guitar fretboard visualiser: pick a root note + scale, see highlighted notes on 
 
 ```sh
 npm run dev       # Vite dev server
-npm run lint      # eslint .
+npm run lint      # eslint . (includes prettier/prettier rule)
+npm run format    # prettier --write .
 npm run build     # tsc -b && vite build  (use `npx tsc -b` for typecheck only)
 npm test          # vitest run
 npm run api:generate  # regenerate src/api/schema.d.ts from ../Fretboard-master-uxapi/openapi.json (or OPENAPI_SPEC=...)
@@ -44,7 +45,7 @@ src/
 
 ## Conventions
 
-- Formatting follows `.prettierrc` (single quotes, trailing commas, 120 cols, `arrowParens: avoid`); there is no npm script, so match the existing style by hand.
+- Formatting follows `.prettierrc` (single quotes, trailing commas, 120 cols, `arrowParens: avoid`); enforced via `eslint-plugin-prettier`, so `npm run lint` reports formatting issues; run `npm run format` to fix.
 - Components are `React.FC<Props>` with a documented props interface and `export default`.
 - Tests sit next to the code as `*.test.ts(x)`; query by role/label/text.
 - Only add a design token when it is reused in more than one place.

@@ -60,7 +60,11 @@ function start(key: string, fetcher: (signal: AbortSignal) => Promise<unknown>) 
  * read when a request starts, so it can safely be an inline closure.
  */
 export function useAsyncData<T>(key: string, fetcher: (signal: AbortSignal) => Promise<T>): AsyncState<T> {
-  const entry = useSyncExternalStore(subscribe, () => entries.get(key), () => entries.get(key));
+  const entry = useSyncExternalStore(
+    subscribe,
+    () => entries.get(key),
+    () => entries.get(key),
+  );
 
   useEffect(() => {
     if (!entries.has(key)) start(key, fetcher);

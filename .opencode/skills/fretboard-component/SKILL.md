@@ -30,10 +30,10 @@ The DOM is identical in both orientations; `orientation` only toggles the `fretb
 
 ## Two string conventions — do not mix them
 
-| Where | Name | Meaning |
-|---|---|---|
-| Data (`FretboardNote.stringIndex`, `onNoteClick(stringIndex, fret)`) | `stringIndex` | 0 = low E ... 5 = high E |
-| DOM (`data-string`, `GuitarString.stringNumber`) | `stringNumber` | 1 = high E ... 6 = low E |
+| Where                                                                | Name           | Meaning                  |
+| -------------------------------------------------------------------- | -------------- | ------------------------ |
+| Data (`FretboardNote.stringIndex`, `onNoteClick(stringIndex, fret)`) | `stringIndex`  | 0 = low E ... 5 = high E |
+| DOM (`data-string`, `GuitarString.stringNumber`)                     | `stringNumber` | 1 = high E ... 6 = low E |
 
 `Fretboard` reverses the data array so high E renders first (top row horizontally). Vertically, `.fretboard__strings` uses `row-reverse` so low E is on the left (chord-diagram convention).
 

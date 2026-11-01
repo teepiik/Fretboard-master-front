@@ -25,14 +25,15 @@ npm run dev        # http://localhost:5173
 
 ## Scripts
 
-| Command              | Description                              |
-| -------------------- | ---------------------------------------- |
-| `npm run dev`        | Start the Vite dev server                |
+| Command              | Description                                           |
+| -------------------- | ----------------------------------------------------- |
+| `npm run dev`        | Start the Vite dev server                             |
 | `npm run build`      | Type check (`tsc -b`) and production build to `dist/` |
-| `npm run preview`    | Serve the production build locally       |
-| `npm run lint`       | ESLint                                   |
-| `npm test`           | Run the test suite once                  |
-| `npm run test:watch` | Run tests in watch mode                  |
+| `npm run preview`    | Serve the production build locally                    |
+| `npm run lint`       | ESLint (includes Prettier formatting check)           |
+| `npm run format`     | Format all files with Prettier                        |
+| `npm test`           | Run the test suite once                               |
+| `npm run test:watch` | Run tests in watch mode                               |
 
 ## Project structure
 
@@ -62,7 +63,7 @@ npm run lint && npx tsc -b && npm test
 
 ## Contributing
 
-- Follow `.prettierrc` (single quotes, trailing commas, 120 columns).
+- Formatting is Prettier (`.prettierrc`), enforced through ESLint; run `npm run format` to fix.
 - Add a design token only when the value is reused.
 - Commit messages: lowercase, imperative, no type prefix, e.g. `add vertical mobile fretboard view`.
 - `AGENTS.md` and `.opencode/skills/` document conventions for AI coding agents.

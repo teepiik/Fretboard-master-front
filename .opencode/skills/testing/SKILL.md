@@ -43,9 +43,9 @@ Tests sit next to the code as `*.test.ts(x)`. Existing layers:
 import { breakpoints } from '../styles/breakpoints';
 import { setViewportWidth } from '../test/matchMedia';
 
-setViewportWidth(breakpoints.mobile);        // before or after render; wrapped in act()
+setViewportWidth(breakpoints.mobile); // before or after render; wrapped in act()
 expect(screen.getByRole('grid')).toHaveAttribute('data-orientation', 'vertical');
-setViewportWidth(breakpoints.mobile + 1);    // back to horizontal
+setViewportWidth(breakpoints.mobile + 1); // back to horizontal
 ```
 
 Width resets to 1280 after each test.

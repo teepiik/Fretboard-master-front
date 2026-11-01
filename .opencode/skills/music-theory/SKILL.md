@@ -7,8 +7,8 @@ description: Use when working on music theory logic — notes, scales, intervals
 
 ## Split of responsibilities
 
-- **Backend (`../Fretboard-master-uxapi`)** owns the *catalogue*: scale formulas (`GET /theory/scales`), tunings (`GET /theory/tunings`), chord/scale analysis (`POST /theory/analyze`). It publishes an OpenAPI spec (`openapi.json`, Swagger UI at `/docs`).
-- **Frontend** owns the *fretboard maths*: given a `Scale` (intervals) and a `Tuning` (MIDI numbers) from the backend, `src/utils/musicTheory/fretboard.ts` computes which note sits on every string/fret and how it is highlighted. No network call is needed when root/scale/frets change.
+- **Backend (`../Fretboard-master-uxapi`)** owns the _catalogue_: scale formulas (`GET /theory/scales`), tunings (`GET /theory/tunings`), chord/scale analysis (`POST /theory/analyze`). It publishes an OpenAPI spec (`openapi.json`, Swagger UI at `/docs`).
+- **Frontend** owns the _fretboard maths_: given a `Scale` (intervals) and a `Tuning` (MIDI numbers) from the backend, `src/utils/musicTheory/fretboard.ts` computes which note sits on every string/fret and how it is highlighted. No network call is needed when root/scale/frets change.
 
 Files: `src/utils/musicTheory/fretboard.ts` (+ test), `src/types/music.ts`, `src/api/{client.ts,schema.d.ts}`, `src/data/api.ts`, `src/hooks/{useAsyncData,useMusicData}.ts`, `src/components/Fretboard/fretMarkers.ts`.
 
@@ -29,14 +29,14 @@ Never import `components[...]` paths in components; add an alias in `types/music
 
 ## Public API (fretboard.ts)
 
-| Function | Purpose |
-|---|---|
-| `noteNameToIndex(name)` | name -> 0–11 (sharps or flats) |
-| `indexToNoteName(index, displayMode)` | 0–11 -> name |
-| `midiToNote(midi, displayMode)` | build a `Note` |
-| `getScaleNoteIndices(root, scale)` -> `Set<number>` | chromatic indices in scale |
-| `getScaleNoteNames(root, scale, displayMode)` | note names in scale |
-| `getHighlight(noteIndex, rootIndex, scaleIndices)` | `'root' \| 'scale' \| 'none'` |
+| Function                                                                                        | Purpose                                                 |
+| ----------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| `noteNameToIndex(name)`                                                                         | name -> 0–11 (sharps or flats)                          |
+| `indexToNoteName(index, displayMode)`                                                           | 0–11 -> name                                            |
+| `midiToNote(midi, displayMode)`                                                                 | build a `Note`                                          |
+| `getScaleNoteIndices(root, scale)` -> `Set<number>`                                             | chromatic indices in scale                              |
+| `getScaleNoteNames(root, scale, displayMode)`                                                   | note names in scale                                     |
+| `getHighlight(noteIndex, rootIndex, scaleIndices)`                                              | `'root' \| 'scale' \| 'none'`                           |
 | `generateFretboardNotes({ root, scale, tuning, numFrets, displayMode })` -> `FretboardNote[][]` | strings x frets, index 0 = lowest string, fret 0 = open |
 
 `hasFretMarker(fret)` lives in `components/Fretboard/fretMarkers.ts` (UI concern).

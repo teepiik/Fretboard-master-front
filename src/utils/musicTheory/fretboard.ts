@@ -23,7 +23,11 @@ export function indexToNoteName(index: number, displayMode: DisplayMode = 'sharp
 /** Build a Note from a MIDI number (C4 = 60). */
 export function midiToNote(midi: number, displayMode: DisplayMode = 'sharp'): Note {
   const chromaticPosition = mod12(midi);
-  return { name: indexToNoteName(chromaticPosition, displayMode), octave: Math.floor(midi / 12) - 1, chromaticPosition };
+  return {
+    name: indexToNoteName(chromaticPosition, displayMode),
+    octave: Math.floor(midi / 12) - 1,
+    chromaticPosition,
+  };
 }
 
 // ── Scale helpers (driven by backend Scale.intervals) ───────────────

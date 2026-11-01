@@ -17,19 +17,19 @@ All styling is plain global CSS. No CSS modules, preprocessors or CSS-in-JS.
 
 ## Token categories (names in tokens.css)
 
-| Group | Examples |
-|---|---|
-| Palette | `--color-neutral-50..900`, `--color-blue-500/600/700`, `--color-green-500`, `--color-red-500`, `--color-golden-brown` |
-| Semantic | `--color-primary(-hover)`, `--color-text(-muted)`, `--color-bg`, `--color-surface`, `--color-border(-hover)`, `--color-header-*`, `--color-nav-hover` |
-| Music | `--color-root-note`, `--color-scale-note`, `--color-chord-tone`, `--color-fret-marker`, `--color-string`, `--color-fretboard` |
-| Spacing (4px base) | `--space-0-5`, `--space-1..6`, `--space-8`, `--space-12`, `--space-16` |
-| Layout | `--header-height`, `--max-content-width`, `--z-header` |
-| Breakpoints | `--bp-mobile: 640px`, `--bp-tablet: 768px`, `--bp-laptop: 1024px` |
-| Fretboard sizing | `--fret-size`, `--fret-nut-size`, `--fret-cross`, `--fret-number-size`, `--fret-nut-border`, `--fret-marker-dot`, `--note-size`, `--note-label-size`, `--touch-target-min` |
-| Typography | `--font-sans/mono`, `--text-xs..5xl`, `--leading-*`, `--font-medium/semibold/bold` |
-| Borders | `--border`, `--radius-sm/..xl/full` |
-| Shadows / focus | `--shadow-sm..xl`, `--ring-width/offset/color` |
-| Motion | `--duration`, `--ease`, `--transition-all/colors/shadow/transform` |
+| Group              | Examples                                                                                                                                                                   |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Palette            | `--color-neutral-50..900`, `--color-blue-500/600/700`, `--color-green-500`, `--color-red-500`, `--color-golden-brown`                                                      |
+| Semantic           | `--color-primary(-hover)`, `--color-text(-muted)`, `--color-bg`, `--color-surface`, `--color-border(-hover)`, `--color-header-*`, `--color-nav-hover`                      |
+| Music              | `--color-root-note`, `--color-scale-note`, `--color-chord-tone`, `--color-fret-marker`, `--color-string`, `--color-fretboard`                                              |
+| Spacing (4px base) | `--space-0-5`, `--space-1..6`, `--space-8`, `--space-12`, `--space-16`                                                                                                     |
+| Layout             | `--header-height`, `--max-content-width`, `--z-header`                                                                                                                     |
+| Breakpoints        | `--bp-mobile: 640px`, `--bp-tablet: 768px`, `--bp-laptop: 1024px`                                                                                                          |
+| Fretboard sizing   | `--fret-size`, `--fret-nut-size`, `--fret-cross`, `--fret-number-size`, `--fret-nut-border`, `--fret-marker-dot`, `--note-size`, `--note-label-size`, `--touch-target-min` |
+| Typography         | `--font-sans/mono`, `--text-xs..5xl`, `--leading-*`, `--font-medium/semibold/bold`                                                                                         |
+| Borders            | `--border`, `--radius-sm/..xl/full`                                                                                                                                        |
+| Shadows / focus    | `--shadow-sm..xl`, `--ring-width/offset/color`                                                                                                                             |
+| Motion             | `--duration`, `--ease`, `--transition-all/colors/shadow/transform`                                                                                                         |
 
 Rules:
 
@@ -49,9 +49,14 @@ Rules:
 Size-heavy components (fretboard) read every dimension from component tokens. Breakpoints then override the tokens on the component root instead of re-declaring rules:
 
 ```css
-.fret { flex: 0 0 var(--fret-size); }
+.fret {
+  flex: 0 0 var(--fret-size);
+}
 @media (max-width: 768px) {
-  .fretboard { --fret-size: 48px; --note-size: 22px; }
+  .fretboard {
+    --fret-size: 48px;
+    --note-size: 22px;
+  }
 }
 ```
 
